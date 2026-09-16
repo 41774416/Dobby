@@ -1,6 +1,6 @@
 name: Build Dobby‑Master Android
 on:
-  workflow_dispatch: # 网页手动点击运行
+  workflow_dispatch:
 
 jobs:
   build_android:
@@ -15,7 +15,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3 python3-pip cmake ninja-build wget unzip
+          sudo apt-get install -y python3 python3-pip cmake ninja-build wget unzip make
 
       - name: Download Linux NDK‑r27c
         run: |
@@ -25,6 +25,8 @@ jobs:
 
       - name: Run official platform_builder.py compile Android all arch
         run: |
+          cd ${{github.workspace}}
+          ls -la
           python3 scripts/platform_builder.py \
           --platform=android \
           --arch=all \
